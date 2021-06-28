@@ -1,0 +1,55 @@
+header {
+  height: 15vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.img {
+  max-height: 9vh;
+}
+
+@media (max-width: 900px) {
+  .img {
+    height: 6vh;
+  }
+}
+
+
+.searchBar {
+  align-items: center;
+  flex-wrap: nowrap;
+  display: flex;
+  width: 40%;
+}
+
+.searchBar > input {
+  font-size: 2vmin;
+  height: 45px;
+  padding: 10px;
+  border: solid 1px rgb(194, 191, 212);
+  border-radius: 5px;
+  width: 90%;
+}
+
+.btnSearch {
+  border: none;
+  margin-left: 5px;
+  width: 50px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: rgb(120, 217, 138);
+}
+
+.btnCart {
+  color: black;
+  text-decoration: none;
+  border: solid 1px rgb(8, 1, 42);
+  padding: 15px;
+  background-color: transparent;
+  border-radius: 100%;
+}
+
+
+

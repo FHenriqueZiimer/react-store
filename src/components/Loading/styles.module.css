@@ -1,0 +1,13 @@
+.container {
+  justify-content: center;
+  width: 100vw;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading {
+  color: rgb(120, 217, 138);  
+  font-size: 6vh;
+}
