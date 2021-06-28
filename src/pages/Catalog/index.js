@@ -6,16 +6,21 @@ import styles from "./styles.module.css";
 import LoadImage from '../../components/LoadImage';
 import LoadingError from '../../components/LoadingError';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { useAlert } from 'react-alert'
+
 
 function Catalog() {
+  const history = useHistory();
+  const alert = useAlert()
   const [error, setErro] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [products, setProducts] = useState([]);
   const [sort, setSort] = useState('newest');
 
-
   async function addToCart(product) {
     const items = JSON.parse(localStorage.getItem("productsInCart")) || [];
+
     if(!product.quantity) {
       product.quantity = 1;
     }
@@ -23,17 +28,19 @@ function Catalog() {
     if(items.some(item => item.id === product.id)) {
       const foundIndex = items.findIndex(item => item.id === product.id);
       const quantity = product.quantity + 1;
-
+      
       product.quantity = quantity
 
       items[foundIndex] = product;
 
       return localStorage.setItem('productsInCart', JSON.stringify(items));
     };
- 
+    
     items.push(product);
-   
+    
     await localStorage.setItem('productsInCart', JSON.stringify(items));
+
+    history.push('/cart');
   };
 
 
@@ -108,7 +115,7 @@ function Catalog() {
                           currency: "BRL",
                         }).format(Number.parseFloat(product.price))}
                       </h3>
-                      <button onClick={e => addToCart(product)} className={styles.addCartBtn}>ADICIONAR AO CARRINHO</button>
+                      <button onClick={e => { addToCart(product); alert.show(`Produto ${product.name} adicionado ao carrinho!`, {  type: 'success' }) }} className={styles.addCartBtn}>ADICIONAR AO CARRINHO</button>
                     </li>
                   ))}
                 </ul>

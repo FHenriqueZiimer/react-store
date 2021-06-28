@@ -3,11 +3,14 @@ import Header from '../../components/Header';
 import styles from './styles.module.css';
 import { Link } from 'react-router-dom';
 import ScrollToTop from "../../components/ScrollToTopBtn";
+import { useAlert } from 'react-alert'
+
 
 function Cart () {
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState('')
   const items = JSON.parse(localStorage.getItem('productsInCart'));
+  const alert = useAlert();
 
   useEffect(() => {
     setCart(items)
@@ -31,7 +34,8 @@ function Cart () {
 
   function chanceQuantity (action, product) {
     if(action === 'decrement' && product.quantity <= 1) {
-      removeItem(product.id)
+      removeItem(product.id);
+      alert.show(`Produto ${product.name} removido do carrinho`, { type: 'success' })
     }
 
     if(action === 'increment') {
@@ -104,7 +108,7 @@ function Cart () {
                     <button value='decrement' onClick={e => chanceQuantity(e.target.value, item)}>-</button><input min='1' max={item.stock} value={item.quantity} readOnly type='number'></input><button value='increment' onClick={e => chanceQuantity(e.target.value, item)}>+</button>
                   </div>
                 </div>
-                <button onClick={() => removeItem(item.id)}>REMOVER ITEM</button>
+                <button onClick={() => { removeItem(item.id); alert.show(`Produto ${item.name} removido do carrinho`, { type: 'success' }) }}>REMOVER ITEM</button>
               </div>
             ))}
           </article>
