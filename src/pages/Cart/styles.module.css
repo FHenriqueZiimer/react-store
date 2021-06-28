@@ -24,7 +24,7 @@
 }
 
 .article {
-  margin-top: 30px;
+  margin-top: 60px;
   width: 30%;
   display: flex;
   flex-direction: column;
@@ -37,6 +37,14 @@
     display: flex;
     flex-direction: column;
   }
+}
+
+.primaryBtn {
+  border: none;
+  margin-left: 5px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: rgb(120, 217, 138);
 }
 
 .article > h1 {
@@ -53,10 +61,12 @@
   justify-content: space-around;
 }
 
-.item > button {
+.primaryBtn {
+  font-size: 2.7vmin;
   border: none;
   margin-left: 5px;
   height: 40px;
+  width: 100%;
   border-radius: 5px;
   background-color: rgb(120, 217, 138);
 }
@@ -84,6 +94,8 @@
 }
 
 .quantity > div > button {
+  font-size: 2.5vmin;
+  text-align: center;
   width: 35px;
   border: none;
   height: 27px;
@@ -94,6 +106,7 @@
 
 @media (max-width: 600px) {
   .quantity {
+    margin-top: 5px;
     flex-wrap: wrap;
     flex-direction: column;
   }
@@ -102,9 +115,14 @@
     flex-wrap: nowrap;
     display: flex;
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 5px;
     margin-left: 0;
   }
+
+  .item > h1 {
+    font-size: 5vmin;
+  }
+  
 }
 
 .resumeCart {
@@ -118,10 +136,9 @@
 
 @media (max-width: 600px) {
   .resumeCart {
-    width: 40%;
+    width: 50%;
   }
 }
-
 
 .fixed {
   font-size: 3vmin;
@@ -136,15 +153,6 @@
 
 .fixed > h1 {
   border-bottom: solid;
-}
-
-.fixed > button {
-  width: 100%;
-  border: none;
-  height: 40px;
-  margin: 0px 5px;
-  border-radius: 10px;
-  background-color: rgb(120, 217, 138);
 }
 
 .quantity > div > input {

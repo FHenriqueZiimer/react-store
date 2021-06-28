@@ -10,9 +10,9 @@ header {
   max-height: 9vh;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 500px) {
   .img {
-    height: 6vh;
+    height: 4vh;
   }
 }
 
@@ -49,6 +49,12 @@ header {
   padding: 15px;
   background-color: transparent;
   border-radius: 100%;
+}
+
+@media (max-width: 500px) {
+  .btnCart {
+    padding: 10px;
+  }
 }
 
 

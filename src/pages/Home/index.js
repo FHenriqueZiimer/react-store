@@ -3,46 +3,19 @@ import Header from "../../components/Header";
 import Loading from "../../components/Loading";
 import ScrollToTop from "../../components/ScrollToTopBtn";
 import styles from "./styles.module.css";
-import LoadImage from '../../components/LoadImage';
 import LoadingError from '../../components/LoadingError';
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
-import { useAlert } from 'react-alert'
+import Pagination from "../../components/Pagination";
+import CatalogProd from "../../components/Catalog";
 
 
-function Catalog() {
-  const history = useHistory();
-  const alert = useAlert()
+function Home() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(5);
   const [error, setErro] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [products, setProducts] = useState([]);
   const [sort, setSort] = useState('newest');
-
-  async function addToCart(product) {
-    const items = JSON.parse(localStorage.getItem("productsInCart")) || [];
-
-    if(!product.quantity) {
-      product.quantity = 1;
-    }
-
-    if(items.some(item => item.id === product.id)) {
-      const foundIndex = items.findIndex(item => item.id === product.id);
-      const quantity = product.quantity + 1;
-      
-      product.quantity = quantity
-
-      items[foundIndex] = product;
-
-      return localStorage.setItem('productsInCart', JSON.stringify(items));
-    };
-    
-    items.push(product);
-    
-    await localStorage.setItem('productsInCart', JSON.stringify(items));
-
-    history.push('/cart');
-  };
-
 
   useEffect(() => {
     fetch("https://5d6da1df777f670014036125.mockapi.io/api/v1/product")
@@ -65,7 +38,13 @@ function Catalog() {
       setProducts(products.slice().sort((a, b) => a.price - b.price))
     }
     // eslint-disable-next-line
-  }, [sort])
+  }, [sort]);
+
+  const indexOfLastPost = currentPage * productsPerPage;
+  const indexOfFirstPost = indexOfLastPost - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = pageNumber => setCurrentPage(pageNumber);
 
   if (error) {
     return (
@@ -99,28 +78,13 @@ function Catalog() {
                   <option value='bigest'>Ordernar por: Maior Preço</option>
                 </select>
             </div>
-            <div className={styles.catalog}>
-              <ul className={styles.products}>
-                  {products.map((product, index) => (
-                    <li className={styles.item} key={index}>
-                      <LoadImage
-                        src={`${product.image}`}
-                        alt={product.name}
-                      ></LoadImage>
-                      <h2>{product.name.toUpperCase()}</h2>
-                      <h2 className={styles.category}>{product.image.replace('http://lorempixel.com/640/480/', '')}</h2>
-                      <h3>
-                        {Intl.NumberFormat("pt-BR", {
-                          style: "currency",
-                          currency: "BRL",
-                        }).format(Number.parseFloat(product.price))}
-                      </h3>
-                      <button onClick={e => { addToCart(product); alert.show(`Produto ${product.name} adicionado ao carrinho!`, {  type: 'success' }) }} className={styles.addCartBtn}>ADICIONAR AO CARRINHO</button>
-                    </li>
-                  ))}
-                </ul>
+              <CatalogProd products={currentProducts} />
+              <Pagination
+                productsPerPage={productsPerPage}
+                totalProducts={products.length}
+                paginate={paginate}
+              />
             </div>
-          </div>
           <ScrollToTop></ScrollToTop>
         </main>
       </>
@@ -128,4 +92,4 @@ function Catalog() {
   }
 }
 
-export default Catalog;
+export default Home;

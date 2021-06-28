@@ -108,7 +108,7 @@ function Cart () {
                     <button value='decrement' onClick={e => chanceQuantity(e.target.value, item)}>-</button><input min='1' max={item.stock} value={item.quantity} readOnly type='number'></input><button value='increment' onClick={e => chanceQuantity(e.target.value, item)}>+</button>
                   </div>
                 </div>
-                <button onClick={() => { removeItem(item.id); alert.show(`Produto ${item.name} removido do carrinho`, { type: 'success' }) }}>REMOVER ITEM</button>
+                <button className={styles.primaryBtn} onClick={() => { removeItem(item.id); alert.show(`Produto ${item.name} removido do carrinho`, { type: 'success' }) }}>REMOVER ITEM</button>
               </div>
             ))}
           </article>
@@ -116,7 +116,7 @@ function Cart () {
             <div className={styles.fixed}>
               <h1>RESUMO DO PEDIDO</h1>
               <h2>Preço Total: {Intl.NumberFormat('pt-BR',{ style: 'currency', currency: 'BRL'}).format(Number.parseFloat(totalPrice))}</h2>
-              <button>FINALIZAR COMPRA</button>
+              <button className={styles.primaryBtn}>FINALIZAR COMPRA</button>
             </div>
           </aside>
       </div>
