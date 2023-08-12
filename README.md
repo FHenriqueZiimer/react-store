@@ -1,9 +1,7 @@
-<h2 align="center">LIven Tech E-commerce</h2>
+<h2 align="center">E-commerce</h2>
 
 # Objetivo:
 Desenvolver um loja simples em React, com um catálogo de produtos e um carrinho de compras. O usuário deve poder adicionar/remover produtos do catálogo no carrinho de compras.
-
-## Live Demo: https://main.d3eme4dciw54ss.amplifyapp.com
 
 ## Como iniciar o projeto :rocket:
 
